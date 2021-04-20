@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "734454521373",
+    "firebase_url": "https://test-pushnotif-58b2d.firebaseio.com",
+    "project_id": "test-pushnotif-58b2d",
+    "storage_bucket": "test-pushnotif-58b2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734454521373:android:8c3fd843d446800606f0f4",
+        "android_client_info": {
+          "package_name": "com.freesons.projepitech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734454521373-5mb7qorso8a8oc3a0lat8ddrc5nba56c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC16UzBHpjpQ3n7kioGbNjqkCWMmeWcbc0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734454521373-5mb7qorso8a8oc3a0lat8ddrc5nba56c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
