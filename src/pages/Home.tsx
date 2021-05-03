@@ -26,8 +26,7 @@ const Home: React.FC = () => {
     }, []);
 
     function openSoundDetail(sound: Sound) {
-        console.log(history);
-        history.push("/home/1");
+        history.push(`/home/${sound.id}`);
     }
 
     return (

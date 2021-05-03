@@ -49,7 +49,6 @@ const Header = ({ showBackButton }: HeaderProps) => {
         setConnectModalOpen(true);
     }
 
-    console.log(user);
     return (
         <IonHeader>
             <IonToolbar>

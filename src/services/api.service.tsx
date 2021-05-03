@@ -13,6 +13,11 @@ class ApiService {
         const url = apiUrl + 'sounds/';
         return ApiService._fetch(url);
     }
+
+    static GetSound(soundId: Number) {
+        const url = apiUrl + `sounds/${soundId}/`;
+        return ApiService._fetch(url);
+    }
 }
 
 export default ApiService;
