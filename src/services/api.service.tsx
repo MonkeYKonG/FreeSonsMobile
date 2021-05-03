@@ -1,5 +1,5 @@
-// const apiUrl = 'https://x2021oxygene667208093000.francecentral.cloudapp.azure.com/';
-const apiUrl = 'http://127.0.0.1:8000/';
+const apiUrl = 'https://free-sons-backend.herokuapp.com/';
+// const apiUrl = 'http://127.0.0.1:8000/';
 
 class ApiService {
     static _fetch(url: string, params = undefined) {

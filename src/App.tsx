@@ -40,6 +40,7 @@ import { profile } from 'console';
 import Profile from './pages/Profile';
 import Add from './pages/Add';
 import UserContext from './contexts/user-context';
+import Sound from './pages/Sound';
 
 const App: React.FC = () => {
   const { PushNotifications } = Plugins;
@@ -75,34 +76,47 @@ const App: React.FC = () => {
   );
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      <IonApp>
-        <IonReactRouter>
-          <IonTabs>
-            <IonRouterOutlet>
-              <Route path='/home' component={Home} exact={true} />
-              <Route path='/profile' component={Profile} exact={true} />
-              <Route path='/add' component={Add} exact={true} />
-              <Route path="/" render={() => <Redirect to="/home" />} exact={true} />
-            </IonRouterOutlet>
-            <IonTabBar slot="bottom">
-              <IonTabButton tab="home" href="/home">
-                <IonIcon icon={triangle} />
-                <IonLabel>Home</IonLabel>
-              </IonTabButton>
-              <IonTabButton tab="profile" href="/profile">
-                <IonIcon icon={images} />
-                <IonLabel>Profile</IonLabel>
-              </IonTabButton>
-              <IonTabButton tab="add" href="/add">
-                <IonIcon icon={square} />
-                <IonLabel>Add</IonLabel>
-              </IonTabButton>
-            </IonTabBar>
-          </IonTabs>
-        </IonReactRouter>
-      </IonApp>
-    </UserContext.Provider>
+    // <UserContext.Provider value={{ user, setUser }}>
+    <IonApp>
+      <IonReactRouter>
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route path="/home" exact >
+              <Home />
+            </Route>
+            <Route path="/home/:id" exact >
+              <Sound />
+            </Route>
+            <Route path="/profile" exact >
+              <Profile />
+            </Route>
+            <Route path="/add" exact >
+              <Add />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/home" />
+            </Route>
+            {/* <Route path="/home/:id" component={Sound} /> */}
+            {/* <Route path="/" render={() => <Redirect to="/home" />} exact={true} /> */}
+          </IonRouterOutlet>
+          <IonTabBar slot="bottom">
+            <IonTabButton tab="home" href="/home">
+              <IonIcon icon={triangle} />
+              <IonLabel>Home</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="profile" href="/profile">
+              <IonIcon icon={images} />
+              <IonLabel>Profile</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="add" href="/add">
+              <IonIcon icon={square} />
+              <IonLabel>Add</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
+      </IonReactRouter>
+    </IonApp>
+    // </UserContext.Provider>
   );
 };
 
