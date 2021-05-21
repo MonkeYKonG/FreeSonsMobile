@@ -1,59 +1,34 @@
-import { IonAvatar, IonBackButton, IonButton, IonButtons, IonHeader, IonIcon, IonLabel, IonModal, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, IonTitle, IonToolbar } from "@ionic/react";
-import React, { useContext, useState } from "react";
-import { square, triangle, images } from 'ionicons/icons';
-
-
+import {
+    IonBackButton,
+    IonButton,
+    IonButtons,
+    IonHeader, IonRouterLink,
+    IonTitle,
+    IonToolbar
+} from "@ionic/react";
+import React, { useContext } from "react";
 import UserContext from "../contexts/user-context";
-import { Route } from "react-router";
+import {Plugins} from "@capacitor/core";
+import {useHistory} from "react-router";
 
-interface ConnectModalProps {
-    isOpen: boolean,
-    setShowModal: (value: boolean) => void
-}
+const { Storage } = Plugins;
 
 interface HeaderProps {
-    showBackButton: boolean
+    showBackButton: boolean;
+    headerTitle: string;
 }
 
-interface TestComponentProps {
-    setShowModal: (value: boolean) => void
-}
+const Header = ({ showBackButton, headerTitle }: HeaderProps) => {
+    const { user, setUser } = useContext(UserContext);
+    const history = useHistory();
 
-const TestComponent = ({ setShowModal }: TestComponentProps) => (
-    <IonButton onClick={() => setShowModal(false)}>Close Modal</IonButton>
-)
-
-const ConnectModal = ({ isOpen, setShowModal }: ConnectModalProps) => {
-    return (
-        <IonModal isOpen={isOpen}>
-            <IonTabs>
-                <IonRouterOutlet>
-                    <Route component={TestComponent}></Route>
-                </IonRouterOutlet>
-                <IonTabBar slot="bottom">
-                    <IonTabButton tab="signin">
-                        <IonIcon icon={triangle} />
-                        <IonLabel>Sign in</IonLabel>
-                    </IonTabButton>
-                    <IonTabButton tab="signup">
-                        <IonIcon icon={triangle} />
-                        <IonLabel>Sign up</IonLabel>
-                    </IonTabButton>
-                </IonTabBar>
-            </IonTabs>
-        </IonModal>
-    );
-}
-
-const Header = ({ showBackButton }: HeaderProps) => {
-    const { user } = useContext(UserContext);
-    const [connectModalOpen, setConnectModalOpen] = useState(false);
-
-    function openConnectModal() {
-        setConnectModalOpen(true);
+    const logout = () => {
+        Storage.remove({key: "user"}).then(() => {
+            history.push("/");
+            setUser(null);
+        });
     }
 
-    console.log(user);
     return (
         <IonHeader>
             <IonToolbar>
@@ -62,24 +37,35 @@ const Header = ({ showBackButton }: HeaderProps) => {
                         <IonButtons slot="start">
                             <IonBackButton defaultHref="/" />
                         </IonButtons> :
-                        <></>
+                        null
                 }
-                <IonTitle>Free-sons</IonTitle>
+                <IonTitle slot={""}>{ headerTitle ? headerTitle : "Free-sons" }</IonTitle>
                 {
                     user ?
-                        <IonAvatar slot="end" /> :
+                        <>
+                            <IonButton slot={"end"} onClick={logout}>
+                                Se Déconnecter
+                            </IonButton>
+                        </>
+                         :
                         (
                             <>
-                                <IonButtons slot='end'>
-                                    <IonButton onClick={openConnectModal}>Connect</IonButton>
-                                </IonButtons>
-                                <ConnectModal isOpen={connectModalOpen} setShowModal={setConnectModalOpen} />
+                                <IonRouterLink slot='end'>
+                                    {
+                                        history.location.pathname !== "/login" &&
+                                        <IonButton href={"/login"}>Se Connecter</IonButton>
+                                    }
+                                    {
+                                        history.location.pathname !== "/register" &&
+                                        <IonButton href={"/register"}>S'enregistrer</IonButton>
+                                    }
+                                </IonRouterLink>
                             </>
                         )
                 }
             </IonToolbar>
         </IonHeader>
     );
-}
+};
 
 export default Header;

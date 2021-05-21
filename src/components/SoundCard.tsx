@@ -5,20 +5,21 @@ import { Sound } from '../types/api.types';
 
 interface SoundCardProps {
     sound: Sound;
-    onClick: (soundKey: Sound) => void;
+    onClick?: (soundKey: Sound) => void;
 }
 
 const SoundCard = (props: SoundCardProps) => {
     const { sound, onClick } = props;
 
     function handleOnCLick() {
-        return onClick(sound);
+        if (onClick)
+            return onClick(sound);
     }
 
     return (
         <IonItem onClick={handleOnCLick}>
             <IonAvatar slot="start">
-                <img src={sound.album?.picture} />
+                <img src={sound && sound.album && sound?.album?.picture ? sound.album.picture : process.env.PUBLIC_URL + "/assets/avatar.svg"} alt={""}/>
             </IonAvatar>
             <IonLabel>
                 {sound.title}

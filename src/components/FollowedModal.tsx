@@ -1,4 +1,4 @@
-import React, {ReactElement, SetStateAction, useContext, useEffect} from "react";
+import React, {ReactElement, SetStateAction, useContext, useEffect, useState} from "react";
 import {
     IonContent,
     IonHeader,
@@ -9,6 +9,7 @@ import {
     IonTitle,
 } from "@ionic/react";
 import UserContext from "../contexts/user-context";
+import {UserTarget} from "../types/api.types";
 
 interface FollowedModalProps {
     open: boolean
@@ -17,16 +18,16 @@ interface FollowedModalProps {
 
 const FollowedModal = ({open, setOpenModal}: FollowedModalProps) => {
     const {user} = useContext(UserContext);
-    let follow: ReactElement[] | undefined;
+    const [follow, setFollow] = useState<ReactElement[]>()
 
     useEffect(() => {
         if (!user || !user.user_followed)
             return;
-        follow = user?.user_followed.map<ReactElement>((followed) => (
+        setFollow(user.user_followed.map((followed: UserTarget) => (
             <IonItem>
                 <IonLabel>{followed.target}</IonLabel>
             </IonItem>
-        ))
+        )))
     }, [user])
 
     return (

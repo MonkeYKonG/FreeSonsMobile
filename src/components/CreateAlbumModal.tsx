@@ -1,5 +1,5 @@
 import React, {Dispatch, SetStateAction} from "react";
-import {IonButton, IonInput, IonModal} from "@ionic/react";
+import {IonButton, IonCol, IonGrid, IonInput, IonModal, IonRow} from "@ionic/react";
 import {Controller, useForm} from "react-hook-form";
 import {CreateAlbumParams, UploadMusicParams} from "../types/api.types";
 import ApiService from "../services/api.service";
@@ -27,17 +27,24 @@ const CreateAlbumModal = ({open, close, onCreated}: CreateAlbumModalProps) => {
 
     return (
         <IonModal isOpen={open}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Controller
-                    name={"title"}
-                    as={<IonInput placeholder={"Titre"}/>}
-                    control={control}
-                    onChangeName="onIonChange"
-                    onChange={([selected]: any) => selected.detail.value}
-                />
-                <input ref={register} placeholder={"Cover de l'album"} name={"file"} type="file" className={"ion-input"}/>
-                <IonButton type={"submit"}>Créer un album</IonButton>
-            </form>
+            <IonGrid>
+                <IonRow>
+                    <IonCol>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <Controller
+                                name={"title"}
+                                as={<IonInput placeholder={"Titre"}/>}
+                                control={control}
+                                onChangeName="onIonChange"
+                                onChange={([selected]: any) => selected.detail.value}
+                            />
+                            <input ref={register} placeholder={"Cover de l'album"} name={"file"} type="file"
+                                   className={"ion-input"}/>
+                            <IonButton type={"submit"}>Créer un album</IonButton>
+                        </form>
+                    </IonCol>
+                </IonRow>
+            </IonGrid>
         </IonModal>
     )
 }

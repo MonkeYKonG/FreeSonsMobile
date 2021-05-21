@@ -1,6 +1,7 @@
-import React, {SetStateAction, useContext, useEffect} from "react";
+import React, {ReactElement, SetStateAction, useContext, useEffect, useState} from "react";
 import {IonHeader, IonItem, IonLabel, IonList, IonModal, IonTitle} from "@ionic/react";
 import UserContext from "../contexts/user-context";
+import {UserTarget} from "../types/api.types";
 
 interface FollowersModalProps {
     open: boolean
@@ -9,16 +10,16 @@ interface FollowersModalProps {
 
 const FollowersModal = ({open, setOpenModal}: FollowersModalProps) => {
     const {user} = useContext(UserContext);
-    let followers = null;
+    const [followers, setFollowers] = useState<ReactElement[]>()
 
     useEffect(() => {
         if (!user || !user.followers)
             return;
-        followers = user.followers.map((follower) => (
+        setFollowers(user.followers.map((follower: UserTarget) => (
             <IonItem>
                 <IonLabel>{follower.target}</IonLabel>
             </IonItem>
-        ))
+        )))
     }, [user])
 
     return (

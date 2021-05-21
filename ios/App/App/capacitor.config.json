@@ -1,8 +1,13 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "photo-gallery-capacitor-react",
+  "appId": "com.freesons.projepitech",
+  "appName": "FreeSons",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",
-  "cordova": {}
+  "cordova": {},
+  "windowsAndroidStudioPath": "C:\\Users\\Victor\\AppData\\Local\\JetBrains\\Toolbox\\apps\\AndroidStudio\\ch-0\\201.7199119\\bin\\studio64.exe",
+  "server": {
+    "url": "http://192.168.1.59:8100",
+    "cleartext": true
+  }
 }

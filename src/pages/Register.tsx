@@ -10,8 +10,9 @@ import {
 import ApiService from "../services/api.service";
 import {Controller, useForm} from "react-hook-form";
 import {RegisterParams} from "../types/api.types";
+import Header from "../components/Header";
 
-const RegisterForm = () => {
+const Register = () => {
     const {handleSubmit, control, watch, errors} = useForm<RegisterParams>();
 
     useEffect(() => {
@@ -28,10 +29,10 @@ const RegisterForm = () => {
 
     return (
         <IonPage>
+            <Header showBackButton={true} headerTitle={"Créer un compte"}/>
             <IonGrid>
                 <IonRow>
                     <IonCol>
-                        <h3>Créer un compte</h3>
                         <form onSubmit={handleSubmit(register)}>
                             <Controller
                                 name={"username"}
@@ -97,4 +98,4 @@ const RegisterForm = () => {
     );
 }
 
-export default RegisterForm;
+export default Register;

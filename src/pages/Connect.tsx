@@ -13,11 +13,12 @@ import { Plugins } from '@capacitor/core';
 import {RouteComponentProps} from "react-router";
 import {Controller, useForm} from "react-hook-form";
 import {ConnectParams} from "../types/api.types";
+import Header from "../components/Header";
 const { Storage } = Plugins;
 
 export interface ConnectFormProps extends RouteComponentProps {}
 
-const ConnectForm = (props: ConnectFormProps) => {
+const Connect = (props: ConnectFormProps) => {
     const {setUser} = useContext(UserContext);
     const {handleSubmit, control, errors, setError} = useForm<ConnectParams>();
 
@@ -38,10 +39,10 @@ const ConnectForm = (props: ConnectFormProps) => {
 
     return (
         <IonPage>
+            <Header showBackButton={true} headerTitle={"Connexion"}/>
             <IonGrid>
                 <IonRow>
                     <IonCol>
-                        <h3>Connection</h3>
                         <form onSubmit={handleSubmit(connect)}>
                             <Controller
                                 name={"username"}
@@ -70,4 +71,4 @@ const ConnectForm = (props: ConnectFormProps) => {
     );
 }
 
-export default ConnectForm;
+export default Connect;

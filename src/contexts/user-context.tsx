@@ -1,9 +1,14 @@
-import React from 'react';
+import React, {Dispatch, SetStateAction} from 'react';
+import {Profile} from "../types/api.types"
 
-const user = {
-    user: null, setUser: (user: any) => { }
-};
+declare interface UserCon {
+    user: Profile | null
+    setUser: Dispatch<SetStateAction<Profile | null>>
+}
 
-const UserContext = React.createContext(user);
+const UserContext = React.createContext<UserCon>({
+    user: null,
+    setUser: value => {}
+});
 
 export default UserContext;
