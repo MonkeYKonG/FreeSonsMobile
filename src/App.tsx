@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {Redirect, Route} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Redirect, Route } from 'react-router-dom';
 import {
-  IonApp,
-  IonFooter,
-  IonHeader,
-  IonIcon,
-  IonLabel,
-  IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
+    IonApp,
+    IonFooter,
+    IonHeader,
+    IonIcon,
+    IonLabel,
+    IonRouterOutlet,
+    IonTabBar,
+    IonTabButton,
+    IonTabs,
 } from '@ionic/react';
-import {IonReactRouter} from '@ionic/react-router';
-import {square, triangle, images} from 'ionicons/icons';
+import { IonReactRouter } from '@ionic/react-router';
+import { square, triangle, images } from 'ionicons/icons';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -36,17 +36,17 @@ import './theme/variables.css';
 /* Global CSS */
 import './global.css';
 
-import {Plugins, PushNotification, PushNotificationToken, PushNotificationActionPerformed} from '@capacitor/core';
+import { Plugins, PushNotification, PushNotificationToken, PushNotificationActionPerformed } from '@capacitor/core';
 import Home from './pages/Home';
 import ProfilePage from './pages/Profile';
 import Add from './pages/Add';
 import UserContext from './contexts/user-context';
 import Sound from './pages/Sound';
-import {Profile} from "./types/api.types";
+import { Profile } from "./types/api.types";
 import Connect from "./pages/Connect";
 import Register from "./pages/Register";
 
-const {Storage} = Plugins;
+const { Storage } = Plugins;
 
 export interface PageProps {
     history: History
@@ -57,18 +57,18 @@ const App: React.FC = () => {
 
     useEffect(() => {
         if (!user) {
-            Storage.get({key: "user"}).then((obj) => {
+            Storage.get({ key: "user" }).then((obj) => {
                 if (!obj || !obj.value)
                     return;
                 setUser(JSON.parse(obj.value));
             });
         } else {
-            Storage.set({key: "user", value: JSON.stringify(user)});
+            Storage.set({ key: "user", value: JSON.stringify(user) });
         }
     }, [user])
 
     useEffect(() => {
-        const {PushNotifications} = Plugins;
+        const { PushNotifications } = Plugins;
 
         PushNotifications.register();
 
@@ -102,40 +102,41 @@ const App: React.FC = () => {
 
     return (
         <IonApp>
-            <UserContext.Provider value={{user, setUser}}>
+            <UserContext.Provider value={{ user, setUser }}>
                 <IonReactRouter>
                     {
                         user ?
                             (
                                 <IonTabs>
                                     <IonRouterOutlet>
-                                        <Route path='/home' component={Home} exact/>
-                                        <Route path="/home/:id" component={Sound} exact/>
-                                        <Route path='/profile' component={ProfilePage} exact={true}/>
-                                        <Route path='/add' component={Add} exact={true}/>
-                                        <Route path="/" render={() => <Redirect to="/home"/>} exact={true}/>
+                                        <Route path='/home' component={Home} exact />
+                                        <Route path="/home/:id" component={Sound} exact />
+                                        <Route path='/profile' component={ProfilePage} exact={true} />
+                                        <Route path='/add' component={Add} exact={true} />
+                                        <Route path="/" render={() => <Redirect to="/home" />} exact={true} />
                                     </IonRouterOutlet>
                                     <IonTabBar slot="bottom">
                                         <IonTabButton tab="home" href="/home">
-                                            <IonIcon icon={triangle}/>
+                                            <IonIcon icon={triangle} />
                                             <IonLabel>Home</IonLabel>
                                         </IonTabButton>
                                         <IonTabButton tab="profile" href="/profile">
-                                            <IonIcon icon={images}/>
+                                            <IonIcon icon={images} />
                                             <IonLabel>Profile</IonLabel>
                                         </IonTabButton>
                                         <IonTabButton tab="add" href="/add">
-                                            <IonIcon icon={square}/>
+                                            <IonIcon icon={square} />
                                             <IonLabel>Add</IonLabel>
                                         </IonTabButton>
                                     </IonTabBar>
                                 </IonTabs>
                             ) :
                             <>
-                                <Route path="/" render={() => <Redirect to="/home"/>} exact={true}/>
-                                <Route path='/home' component={Home} exact={true}/>
-                                <Route path={"/login"} exact={true} component={Connect}/>
-                                <Route path={"/register"} exact={true} component={Register}/>
+                                <Route path="/" render={() => <Redirect to="/home" />} exact={true} />
+                                <Route path='/home' component={Home} exact={true} />
+                                <Route path="/home/:id" component={Sound} exact />
+                                <Route path={"/login"} exact={true} component={Connect} />
+                                <Route path={"/register"} exact={true} component={Register} />
                             </>
                     }
                 </IonReactRouter>

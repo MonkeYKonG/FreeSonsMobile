@@ -126,6 +126,16 @@ class ApiService {
                 })
         })
     }
+
+    static SendCommentary = (soundId: number, commentary: string) => {
+        return Storage.get({ key: "token" }).then(({ value: token }) => {
+            return axios.post(apiUrl + '/sounds/' + soundId + '/comment/', { message: commentary }, {
+                headers: {
+                    Authorization: "Bearer " + token
+                }
+            });
+        });
+    }
 }
 
 export default ApiService

@@ -1,9 +1,12 @@
 import {
+    IonAvatar,
     IonBackButton,
     IonButton,
     IonButtons,
-    IonHeader, IonIcon, IonLabel, IonModal, IonRouterLink,
+    IonHeader, IonIcon, IonItem, IonLabel, IonModal, IonRouterLink,
     IonRouterOutlet,
+    IonSelect,
+    IonSelectOption,
     IonTabBar,
     IonTabButton,
     IonTabs,
@@ -15,6 +18,8 @@ import UserContext from "../contexts/user-context";
 import { Plugins } from "@capacitor/core";
 import { Route, useHistory } from "react-router";
 import { triangle } from "ionicons/icons";
+import { disconnect } from "process";
+import styled from "styled-components";
 
 const { Storage } = Plugins;
 
@@ -23,36 +28,9 @@ interface HeaderProps {
     headerTitle?: string;
 }
 
-interface ConnectModalProps {
-    isOpen: any;
-    setShowModal: any;
-}
+const StyledIonSelect = styled(IonSelect)`
+`;
 
-const ConnectModal = ({ isOpen, setShowModal }: ConnectModalProps) => {
-    const TestComponent = () => (
-        <IonButton onClick={() => setShowModal(false)}>Close Modal</IonButton>
-    )
-
-    return (
-        <IonModal isOpen={isOpen}>
-            <IonTabs>
-                <IonRouterOutlet>
-                    <Route component={TestComponent}></Route>
-                </IonRouterOutlet>
-                <IonTabBar slot="bottom">
-                    <IonTabButton tab="signin">
-                        <IonIcon icon={triangle} />
-                        <IonLabel>Sign in</IonLabel>
-                    </IonTabButton>
-                    <IonTabButton tab="signup">
-                        <IonIcon icon={triangle} />
-                        <IonLabel>Sign up</IonLabel>
-                    </IonTabButton>
-                </IonTabBar>
-            </IonTabs>
-        </IonModal>
-    );
-}
 
 const Header = ({ showBackButton, headerTitle }: HeaderProps) => {
     const { user, setUser } = useContext(UserContext);
@@ -84,9 +62,20 @@ const Header = ({ showBackButton, headerTitle }: HeaderProps) => {
                 {
                     user ?
                         <>
-                            <IonButton slot={"end"} onClick={logout}>
-                                Se Déconnecter
-                            </IonButton>
+                            <IonItem slot='end'>
+                                <IonAvatar>
+                                    <img src={user.profile_picture} />
+                                </IonAvatar>
+                                <IonSelect slot='end'
+                                    interface="popover"
+                                    onIonChange={logout}
+                                >
+                                    <IonSelectOption value='disconnect'>
+                                        Se deconnecter
+                                    </IonSelectOption>
+                                </IonSelect>
+
+                            </IonItem>
                         </>
                         :
                         (

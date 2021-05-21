@@ -91,7 +91,13 @@ const SoundDetail: React.FC = () => {
   }
 
   function sendCommentaryClicked() {
-    if (commentary?.length) {
+    if (sound && commentary?.length) {
+      ApiService.SendCommentary(sound.id, commentary)
+        .then(() => {
+          ApiService.GetSound(sound.id).then(sound => {
+            setSound(sound.data);
+          })
+        });
       setCommentary('');
     }
   }
@@ -102,7 +108,7 @@ const SoundDetail: React.FC = () => {
 
   return (
     <IonPage>
-      <Header showBackButton={true} />
+      <Header showBackButton={true} headerTitle={sound?.title} />
       <IonContent>
         <Loading rootClass={LoadingClasses} />
         <IonGrid>
@@ -124,15 +130,15 @@ const SoundDetail: React.FC = () => {
             </IonRow>
             <IonRow class="ion-justify-content-center">
               <IonButton onClick={playClicked}>
-                Play Sound!
+                Jouer le son!
                 <IonIcon icon={play}></IonIcon>
               </IonButton>
             </IonRow>
           </IonCol>
         </IonGrid>
         <IonItem lines="inset">
-          <IonInput placeholder="Write comment" value={commentary} onIonChange={commentaryChangeHandler} />
-          <IonButton size="default" onClick={sendCommentaryClicked} disabled={(commentary && commentary.length > 0) ? true : false}>Send</IonButton>
+          <IonInput placeholder="Commentez le son" value={commentary} onIonChange={commentaryChangeHandler} />
+          <IonButton size="default" onClick={sendCommentaryClicked} disabled={commentary?.length ? false : true}>Envoyer</IonButton>
         </IonItem>
         <CommentaryList>
           {
