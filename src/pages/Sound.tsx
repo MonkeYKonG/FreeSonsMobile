@@ -7,7 +7,6 @@ import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import SoundPlayer from '../components/SoundPlayer';
-import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import ApiService from '../services/api.service';
 import { Sound, Comment } from '../types/api.types';
 
