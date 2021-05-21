@@ -1,9 +1,13 @@
-import { IonAvatar, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonIcon, IonImg, IonItem, IonItemDivider, IonLabel, IonList, IonLoading, IonPage, IonRow, IonSpinner, IonText, IonThumbnail } from '@ionic/react';
+import { IonAvatar, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonFooter, IonGrid, IonIcon, IonImg, IonInput, IonItem, IonItemDivider, IonLabel, IonList, IonLoading, IonPage, IonRow, IonSpinner, IonText, IonThumbnail } from '@ionic/react';
+import { play, playOutline } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
+import SoundPlayer from '../components/SoundPlayer';
+import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import ApiService from '../services/api.service';
 import { Sound, Comment } from '../types/api.types';
 
@@ -59,6 +63,8 @@ const SoundDetail: React.FC = () => {
   const [sound, setSound] = useState<Sound | null>(null);
   const [albumPicture, setAlbumPicture] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
+  const [playerOpen, setPlayerOpen] = useState(false);
+  const [commentary, setCommentary] = useState<string>();
 
   const LoadingClasses = isLoaded ? 'ion-hide' : '';
 
@@ -78,6 +84,25 @@ const SoundDetail: React.FC = () => {
         setIsLoaded(true);
       });
   }, []);
+
+  function playClicked() {
+    if (!sound) {
+      return;
+    }
+    setPlayerOpen(true);
+  }
+
+  function sendCommentaryClicked() {
+    if (commentary?.length) {
+      setCommentary('');
+    }
+  }
+
+  function commentaryChangeHandler(event: any) {
+    setCommentary(event.target.value);
+  }
+
+  console.log(commentary && commentary.length > 0);
 
   return (
     <IonPage>
@@ -102,10 +127,17 @@ const SoundDetail: React.FC = () => {
               </AlbumTitleComponent>
             </IonRow>
             <IonRow class="ion-justify-content-center">
-              <IonIcon name="play-outline"></IonIcon>
+              <IonButton onClick={playClicked}>
+                Play Sound!
+                <IonIcon icon={play}></IonIcon>
+              </IonButton>
             </IonRow>
           </IonCol>
         </IonGrid>
+        <IonItem lines="inset">
+          <IonInput placeholder="Write comment" value={commentary} onIonChange={commentaryChangeHandler} />
+          <IonButton size="default" onClick={sendCommentaryClicked} disabled={(commentary && commentary.length > 0) ? true : false}>Send</IonButton>
+        </IonItem>
         <CommentaryList>
           {
             sound?.comments?.map(comment => (
@@ -114,6 +146,9 @@ const SoundDetail: React.FC = () => {
           }
         </CommentaryList>
       </IonContent>
+      <IonFooter>
+        <SoundPlayer sound={playerOpen ? sound : null} />
+      </IonFooter>
     </IonPage>
   );
 }

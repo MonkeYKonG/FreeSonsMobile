@@ -92,7 +92,7 @@ const App: React.FC = () => {
               <Home />
             </Route>
             <Route path="/home/:id" exact >
-              <ArtistDetail />
+              <Sound />
             </Route>
             <Route path="/profile" exact >
               <Profile />
@@ -106,7 +106,6 @@ const App: React.FC = () => {
             {/* <Route path="/home/:id" component={Sound} /> */}
             {/* <Route path="/" render={() => <Redirect to="/home" />} exact={true} /> */}
           </IonRouterOutlet>
-          <SoundPlayer />
           <IonTabBar slot="bottom">
             <IonTabButton tab="home" href="/home">
               <IonIcon icon={triangle} />
@@ -123,9 +122,6 @@ const App: React.FC = () => {
           </IonTabBar>
         </IonTabs>
       </IonReactRouter>
-      <IonFooter>
-        <SoundPlayer />
-      </IonFooter>
     </IonApp>
     // </UserContext.Provider>
   );

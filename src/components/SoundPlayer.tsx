@@ -1,23 +1,34 @@
-import { IonContent, IonLabel, IonToolbar } from '@ionic/react';
-import React, { useState } from 'react';
+import { IonContent, IonItem, IonLabel, IonToolbar } from '@ionic/react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import { Sound } from '../types/api.types';
 
+interface SoundPlayerProps {
+  sound: Sound | null
+}
+
 const StyledToolbar = styled(IonToolbar)`
-  position: absolute;
-  bottom: -94vh;
+  
 `;
 
-const SoundPlayer: React.FC = () => {
-  const [sound, setSound] = useState<Sound | null>(null);
+const StyledAudio = styled(IonItem)`
+  width: 100%;
+`;
 
+const SoundPlayer: React.FC<SoundPlayerProps> = (props: SoundPlayerProps) => {
+  const { sound } = props;
+
+  console.log("sound player?")
 
   if (sound) {
     return (
       <StyledToolbar>
-        <audio controls>
-          <source src="" />
-        </audio>
+        <StyledAudio lines='none'>
+          <audio controls autoPlay>
+            <source src={sound.file} />
+          </audio>
+        </StyledAudio>
       </StyledToolbar>
     );
   } else {

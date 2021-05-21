@@ -18,13 +18,13 @@ const Home: React.FC = () => {
     const history = useHistory();
 
     useEffect(() => {
-        ApiService.GetArtists()
-            .then(json => {
-                setArtists(json.results);
-                console.log(json.results);
-            }, err => {
-                console.log(err);
-            })
+        // ApiService.GetArtists()
+        //     .then(json => {
+        //         setArtists(json.results);
+        //         console.log(json.results);
+        //     }, err => {
+        //         console.log(err);
+        //     })
 
         ApiService.GetSounds()
             .then(json => {
@@ -49,7 +49,7 @@ const Home: React.FC = () => {
             <IonContent>
                 <IonList>
                     {
-                        artists.map((artist) => <ArtistCard key={artist.id} artist={artist} onClick={openArtistDetail} />)
+                        sounds.map((sound) => <SoundCard key={sound.id} sound={sound} onClick={openSoundDetail} />)
                     }
                 </IonList>
             </IonContent>
