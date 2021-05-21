@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import {
   IonApp,
+  IonFooter,
+  IonHeader,
   IonIcon,
   IonLabel,
   IonRouterOutlet,
@@ -41,6 +43,8 @@ import Profile from './pages/Profile';
 import Add from './pages/Add';
 import UserContext from './contexts/user-context';
 import Sound from './pages/Sound';
+import ArtistDetail from './pages/ArtistDetail';
+import SoundPlayer from './components/SoundPlayer';
 
 const App: React.FC = () => {
   const { PushNotifications } = Plugins;
@@ -78,6 +82,9 @@ const App: React.FC = () => {
   return (
     // <UserContext.Provider value={{ user, setUser }}>
     <IonApp>
+      {/* <IonHeader>
+        <SoundPlayer />
+      </IonHeader> */}
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
@@ -85,7 +92,7 @@ const App: React.FC = () => {
               <Home />
             </Route>
             <Route path="/home/:id" exact >
-              <Sound />
+              <ArtistDetail />
             </Route>
             <Route path="/profile" exact >
               <Profile />
@@ -99,6 +106,7 @@ const App: React.FC = () => {
             {/* <Route path="/home/:id" component={Sound} /> */}
             {/* <Route path="/" render={() => <Redirect to="/home" />} exact={true} /> */}
           </IonRouterOutlet>
+          <SoundPlayer />
           <IonTabBar slot="bottom">
             <IonTabButton tab="home" href="/home">
               <IonIcon icon={triangle} />
@@ -115,6 +123,9 @@ const App: React.FC = () => {
           </IonTabBar>
         </IonTabs>
       </IonReactRouter>
+      <IonFooter>
+        <SoundPlayer />
+      </IonFooter>
     </IonApp>
     // </UserContext.Provider>
   );
