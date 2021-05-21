@@ -15,7 +15,7 @@ import { Plugins } from '@capacitor/core';
 
 const { Storage } = Plugins;
 
-const apiUrl = "http://free-sons-backend.herokuapp.com";
+const apiUrl = "https://free-sons-backend.herokuapp.com";
 
 class ApiService {
     static token: string;
@@ -130,6 +130,16 @@ class ApiService {
     static SendCommentary = (soundId: number, commentary: string) => {
         return Storage.get({ key: "token" }).then(({ value: token }) => {
             return axios.post(apiUrl + '/sounds/' + soundId + '/comment/', { message: commentary }, {
+                headers: {
+                    Authorization: "Bearer " + token
+                }
+            });
+        });
+    }
+
+    static RegisterDevice = (deviceToken: string) => {
+        return Storage.get({ key: "token" }).then(({ value: token }) => {
+            return axios.post(apiUrl + '/device/', { registration_id: deviceToken, cloud_message_type: "FCM" }, {
                 headers: {
                     Authorization: "Bearer " + token
                 }

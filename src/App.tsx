@@ -45,6 +45,7 @@ import Sound from './pages/Sound';
 import { Profile } from "./types/api.types";
 import Connect from "./pages/Connect";
 import Register from "./pages/Register";
+import ApiService from './services/api.service';
 
 const { Storage } = Plugins;
 
@@ -74,7 +75,7 @@ const App: React.FC = () => {
 
         PushNotifications.addListener('registration',
             (token: PushNotificationToken) => {
-                alert('Push registration success, token: ' + token.value);
+                ApiService.RegisterDevice(token.value);
             }
         );
 
