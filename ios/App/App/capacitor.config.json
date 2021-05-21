@@ -5,6 +5,7 @@
   "npmClient": "npm",
   "webDir": "build",
   "cordova": {},
+  "linuxAndroidStudioPath": "/home/alexis/Documents/android-studio/bin/studio.sh",
   "windowsAndroidStudioPath": "C:\\Users\\Victor\\AppData\\Local\\JetBrains\\Toolbox\\apps\\AndroidStudio\\ch-0\\201.7199119\\bin\\studio64.exe",
   "server": {
     "url": "http://192.168.1.59:8100",

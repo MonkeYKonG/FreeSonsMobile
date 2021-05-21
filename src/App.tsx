@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {Redirect, Route} from 'react-router-dom';
 import {
-    IonApp,
-    IonIcon,
-    IonLabel,
-    IonRouterOutlet,
-    IonTabBar,
-    IonTabButton,
-    IonTabs,
+  IonApp,
+  IonFooter,
+  IonHeader,
+  IonIcon,
+  IonLabel,
+  IonRouterOutlet,
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
 } from '@ionic/react';
 import {IonReactRouter} from '@ionic/react-router';
 import {square, triangle, images} from 'ionicons/icons';

@@ -18,8 +18,35 @@ interface HeaderProps {
     headerTitle: string;
 }
 
-const Header = ({ showBackButton, headerTitle }: HeaderProps) => {
-    const { user, setUser } = useContext(UserContext);
+const ConnectModal = ({ isOpen, setShowModal }: ConnectModalProps) => {
+    const TestComponent = () => (
+        <IonButton onClick={() => setShowModal(false)}>Close Modal</IonButton>
+    )
+
+    return (
+        <IonModal isOpen={isOpen}>
+            <IonTabs>
+                <IonRouterOutlet>
+                    <Route component={TestComponent}></Route>
+                </IonRouterOutlet>
+                <IonTabBar slot="bottom">
+                    <IonTabButton tab="signin">
+                        <IonIcon icon={triangle} />
+                        <IonLabel>Sign in</IonLabel>
+                    </IonTabButton>
+                    <IonTabButton tab="signup">
+                        <IonIcon icon={triangle} />
+                        <IonLabel>Sign up</IonLabel>
+                    </IonTabButton>
+                </IonTabBar>
+            </IonTabs>
+        </IonModal>
+    );
+}
+
+const Header = ({ showBackButton }: HeaderProps) => {
+    const { user } = useContext(UserContext);
+    const [connectModalOpen, setConnectModalOpen] = useState(false);
     const history = useHistory();
 
     const logout = () => {
@@ -27,6 +54,9 @@ const Header = ({ showBackButton, headerTitle }: HeaderProps) => {
             history.push("/");
             setUser(null);
         });
+
+    function openConnectModal() {
+        setConnectModalOpen(true);
     }
 
     return (

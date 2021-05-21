@@ -122,6 +122,21 @@ class ApiService {
                 })
         })
     }
+
+    static GetSound(soundId: Number) {
+        const url = apiUrl + `sounds/${soundId}/`;
+        return ApiService._fetch(url);
+    }
+
+    static GetArtists() {
+        const url = apiUrl + 'users/';
+        return ApiService._fetch(url);
+    }
+
+    static GetArtist(artistId: Number) {
+        const url = apiUrl + `users/${artistId}`;
+        return ApiService._fetch(url);
+    }
 }
 
 export default ApiService
