@@ -1,14 +1,13 @@
-import {IonContent, IonList, IonPage} from '@ionic/react';
-import {RouteComponentProps, useHistory} from "react-router";
+import { IonContent, IonList, IonPage } from '@ionic/react';
+import { RouteComponentProps, useHistory } from "react-router";
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
 import ArtistCard from '../components/ArtistCard';
 import Header from '../components/Header';
 import SoundCard from '../components/SoundCard';
 import ApiService from '../services/api.service';
 import { Sound, Artist } from '../types/api.types';
 
-export interface HomePageProps extends RouteComponentProps {}
+export interface HomePageProps extends RouteComponentProps { }
 
 const Home = (props: HomePageProps) => {
     const [sounds, setSounds] = useState<Sound[]>([]);
@@ -25,10 +24,9 @@ const Home = (props: HomePageProps) => {
         //     })
 
         ApiService.GetSounds()
-            .then(({data}) => {
+            .then(({ data }) => {
                 setSounds(data.results);
             }, err => {
-                console.log("ERROR");
                 console.log(err);
             });
     }, []);
@@ -43,11 +41,11 @@ const Home = (props: HomePageProps) => {
 
     return (
         <IonPage>
-            <Header showBackButton={false} headerTitle={"Accueil"}/>
+            <Header showBackButton={false} headerTitle={"Accueil"} />
             <IonContent>
                 <IonList>
                     {
-                        sounds.map((sound) => <SoundCard key={sound.id} sound={sound} onClick={openSoundDetail}/>)
+                        sounds.map((sound) => <SoundCard key={sound.id} sound={sound} onClick={openSoundDetail} />)
                     }
                 </IonList>
             </IonContent>

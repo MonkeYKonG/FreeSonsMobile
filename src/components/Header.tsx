@@ -2,20 +2,30 @@ import {
     IonBackButton,
     IonButton,
     IonButtons,
-    IonHeader, IonRouterLink,
+    IonHeader, IonIcon, IonLabel, IonModal, IonRouterLink,
+    IonRouterOutlet,
+    IonTabBar,
+    IonTabButton,
+    IonTabs,
     IonTitle,
     IonToolbar
 } from "@ionic/react";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import UserContext from "../contexts/user-context";
-import {Plugins} from "@capacitor/core";
-import {useHistory} from "react-router";
+import { Plugins } from "@capacitor/core";
+import { Route, useHistory } from "react-router";
+import { triangle } from "ionicons/icons";
 
 const { Storage } = Plugins;
 
 interface HeaderProps {
     showBackButton: boolean;
-    headerTitle: string;
+    headerTitle?: string;
+}
+
+interface ConnectModalProps {
+    isOpen: any;
+    setShowModal: any;
 }
 
 const ConnectModal = ({ isOpen, setShowModal }: ConnectModalProps) => {
@@ -44,16 +54,17 @@ const ConnectModal = ({ isOpen, setShowModal }: ConnectModalProps) => {
     );
 }
 
-const Header = ({ showBackButton }: HeaderProps) => {
-    const { user } = useContext(UserContext);
+const Header = ({ showBackButton, headerTitle }: HeaderProps) => {
+    const { user, setUser } = useContext(UserContext);
     const [connectModalOpen, setConnectModalOpen] = useState(false);
     const history = useHistory();
 
     const logout = () => {
-        Storage.remove({key: "user"}).then(() => {
+        Storage.remove({ key: "user" }).then(() => {
             history.push("/");
             setUser(null);
         });
+    }
 
     function openConnectModal() {
         setConnectModalOpen(true);
@@ -69,7 +80,7 @@ const Header = ({ showBackButton }: HeaderProps) => {
                         </IonButtons> :
                         null
                 }
-                <IonTitle slot={""}>{ headerTitle ? headerTitle : "Free-sons" }</IonTitle>
+                <IonTitle slot={""}>{headerTitle ? headerTitle : "Free-sons"}</IonTitle>
                 {
                     user ?
                         <>
@@ -77,7 +88,7 @@ const Header = ({ showBackButton }: HeaderProps) => {
                                 Se Déconnecter
                             </IonButton>
                         </>
-                         :
+                        :
                         (
                             <>
                                 <IonRouterLink slot='end'>

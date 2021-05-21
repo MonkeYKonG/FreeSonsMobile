@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import {
     IonButton,
     IonCol,
@@ -8,16 +8,12 @@ import {
     IonRow, IonText,
 } from "@ionic/react";
 import ApiService from "../services/api.service";
-import {Controller, useForm} from "react-hook-form";
-import {RegisterParams} from "../types/api.types";
+import { Controller, useForm } from "react-hook-form";
+import { RegisterParams } from "../types/api.types";
 import Header from "../components/Header";
 
 const Register = () => {
-    const {handleSubmit, control, watch, errors} = useForm<RegisterParams>();
-
-    useEffect(() => {
-        console.log(errors);
-    }, [errors])
+    const { handleSubmit, control, watch, errors } = useForm<RegisterParams>();
 
     const register = (data: RegisterParams) => {
         ApiService.Register(data).then((res) => {
@@ -29,41 +25,41 @@ const Register = () => {
 
     return (
         <IonPage>
-            <Header showBackButton={true} headerTitle={"Créer un compte"}/>
+            <Header showBackButton={true} headerTitle={"Créer un compte"} />
             <IonGrid>
                 <IonRow>
                     <IonCol>
                         <form onSubmit={handleSubmit(register)}>
                             <Controller
                                 name={"username"}
-                                as={<IonInput type="text" placeholder="Nom d'utilisateur"/>}
+                                as={<IonInput type="text" placeholder="Nom d'utilisateur" />}
                                 control={control}
-                                rules={{required: "Le nom d'utilisateur est obligatoire"}}
+                                rules={{ required: "Le nom d'utilisateur est obligatoire" }}
                                 onChangeName="onIonChange"
                                 onChange={([selected]: any) => selected.detail.value}
                             />
                             <IonText color={"danger"}>{errors?.username?.message}</IonText>
                             <Controller
                                 name={"email"}
-                                as={<IonInput type="email" placeholder="Email"/>}
+                                as={<IonInput type="email" placeholder="Email" />}
                                 control={control}
-                                rules={{required: "L'email est obligatoire"}}
+                                rules={{ required: "L'email est obligatoire" }}
                                 onChangeName="onIonChange"
                                 onChange={([selected]: any) => selected.detail.value}
                             />
                             <IonText color={"danger"}>{errors?.email?.message}</IonText>
                             <Controller
                                 name={"password"}
-                                as={<IonInput type="password" placeholder="Mot de passe"/>}
+                                as={<IonInput type="password" placeholder="Mot de passe" />}
                                 control={control}
-                                rules={{required: "Le mot de passe est obligatoire"}}
+                                rules={{ required: "Le mot de passe est obligatoire" }}
                                 onChangeName="onIonChange"
                                 onChange={([selected]: any) => selected.detail.value}
                             />
                             <IonText color={"danger"}>{errors?.password?.message}</IonText>
                             <Controller
                                 name={"confirmPassword"}
-                                as={<IonInput type="password" placeholder="Vérifier mot de passe"/>}
+                                as={<IonInput type="password" placeholder="Vérifier mot de passe" />}
                                 control={control}
                                 rules={{
                                     required: "La verification du mot de passe est obligatoire",
@@ -75,7 +71,7 @@ const Register = () => {
                             <IonText color={"danger"}>{errors?.confirmPassword?.message}</IonText>
                             <Controller
                                 name={"firstname"}
-                                as={<IonInput type="text" placeholder="Prénom"/>}
+                                as={<IonInput type="text" placeholder="Prénom" />}
                                 control={control}
                                 onChangeName="onIonChange"
                                 onChange={([selected]: any) => selected.detail.value}
@@ -83,7 +79,7 @@ const Register = () => {
                             <IonText color={"danger"}>{errors?.first_name?.message}</IonText>
                             <Controller
                                 name={"lastname"}
-                                as={<IonInput type="text" placeholder="Nom"/>}
+                                as={<IonInput type="text" placeholder="Nom" />}
                                 control={control}
                                 onChangeName="onIonChange"
                                 onChange={([selected]: any) => selected.detail.value}

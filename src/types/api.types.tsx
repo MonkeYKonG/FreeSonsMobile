@@ -39,6 +39,7 @@ export interface Sound {
     file: string;
     style?: number;
     title: string;
+    comments: Comment[];
 }
 
 export interface Playlist {

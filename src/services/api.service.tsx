@@ -41,6 +41,10 @@ class ApiService {
         return axios.get<SoundPayload>(apiUrl + "/sounds/");
     }
 
+    static GetSound = (soundId: number) => {
+        return axios.get<Sound>(apiUrl + '/sounds/' + soundId + '/');
+    }
+
     static Connect = (params: ConnectParams) => {
         const requestParam = qs.stringify({
             grant_type: "password",
@@ -60,7 +64,7 @@ class ApiService {
     }
 
     static GetProfile = () => {
-        return Storage.get({key: "token"}).then(({value: token}) => {
+        return Storage.get({ key: "token" }).then(({ value: token }) => {
             return axios.get<Profile>(apiUrl + "/profile/", {
                 headers: {
                     Authorization: "Bearer " + token
@@ -70,7 +74,7 @@ class ApiService {
     }
 
     static UploadMusic = (request: UploadMusicParams) => {
-        return Storage.get({key: "token"}).then(({value: token}) => {
+        return Storage.get({ key: "token" }).then(({ value: token }) => {
             const data = new FormData()
             ApiService.buildFormData(data, request);
             return axios.post<Sound>(apiUrl + "/sounds/", data, {
@@ -83,7 +87,7 @@ class ApiService {
     }
 
     static CreateAlbum = (request: CreateAlbumParams) => {
-        return Storage.get({key: "token"}).then(({value: token}) => {
+        return Storage.get({ key: "token" }).then(({ value: token }) => {
             const data = new FormData()
             ApiService.buildFormData(data, request);
             return axios.post<Album>(apiUrl + "/albums/", data, {
@@ -100,10 +104,10 @@ class ApiService {
     }
 
     static UpdateProfile = (userId: number, request: UpdateProfileParams) => {
-        return Storage.get({key: "token"}).then(({value: token}) => {
+        return Storage.get({ key: "token" }).then(({ value: token }) => {
             if (request.file) {
                 const data = new FormData()
-                ApiService.buildFormData(data, {picture: request.file});
+                ApiService.buildFormData(data, { picture: request.file });
                 return axios.post<User>(apiUrl + "/" + userId + "/update_profile_picture/", data, {
                     headers: {
                         Authorization: "Bearer " + token,
@@ -111,7 +115,7 @@ class ApiService {
                     }
                 }).then((res) => {
                     console.log(res);
-                    delete request.file
+                    delete request.file;
                     return axios.patch<User>(apiUrl + "/users/" + userId + "/", request)
                 })
             } else
@@ -121,21 +125,6 @@ class ApiService {
                     }
                 })
         })
-    }
-
-    static GetSound(soundId: Number) {
-        const url = apiUrl + `sounds/${soundId}/`;
-        return ApiService._fetch(url);
-    }
-
-    static GetArtists() {
-        const url = apiUrl + 'users/';
-        return ApiService._fetch(url);
-    }
-
-    static GetArtist(artistId: Number) {
-        const url = apiUrl + `users/${artistId}`;
-        return ApiService._fetch(url);
     }
 }
 

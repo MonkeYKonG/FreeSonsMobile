@@ -71,10 +71,9 @@ const SoundDetail: React.FC = () => {
     const path = history.location.pathname;
     ApiService.GetSound(Number(path.substr(path.lastIndexOf('/') + 1)))
       .then(json => {
-        console.log(json);
-        setSound(json);
-        if (json.album) {
-          setAlbumPicture(json.album.picture);
+        setSound(json.data);
+        if (json.data.album) {
+          setAlbumPicture(json.data.album.picture);
         }
       }, err => {
         console.log(err);
@@ -100,8 +99,6 @@ const SoundDetail: React.FC = () => {
   function commentaryChangeHandler(event: any) {
     setCommentary(event.target.value);
   }
-
-  console.log(commentary && commentary.length > 0);
 
   return (
     <IonPage>

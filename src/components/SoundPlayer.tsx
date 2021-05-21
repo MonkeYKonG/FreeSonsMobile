@@ -1,7 +1,6 @@
 import { IonContent, IonItem, IonLabel, IonToolbar } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import { Sound } from '../types/api.types';
 
 interface SoundPlayerProps {
@@ -19,7 +18,6 @@ const StyledAudio = styled(IonItem)`
 const SoundPlayer: React.FC<SoundPlayerProps> = (props: SoundPlayerProps) => {
   const { sound } = props;
 
-  console.log("sound player?")
 
   if (sound) {
     return (
