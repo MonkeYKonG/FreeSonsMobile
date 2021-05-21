@@ -15,15 +15,11 @@ interface HeaderProps {
     showBackButton: boolean
 }
 
-interface TestComponentProps {
-    setShowModal: (value: boolean) => void
-}
-
-const TestComponent = ({ setShowModal }: TestComponentProps) => (
-    <IonButton onClick={() => setShowModal(false)}>Close Modal</IonButton>
-)
-
 const ConnectModal = ({ isOpen, setShowModal }: ConnectModalProps) => {
+    const TestComponent = () => (
+        <IonButton onClick={() => setShowModal(false)}>Close Modal</IonButton>
+    )
+
     return (
         <IonModal isOpen={isOpen}>
             <IonTabs>
@@ -53,7 +49,6 @@ const Header = ({ showBackButton }: HeaderProps) => {
         setConnectModalOpen(true);
     }
 
-    console.log(user);
     return (
         <IonHeader>
             <IonToolbar>

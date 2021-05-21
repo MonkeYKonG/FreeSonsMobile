@@ -1,8 +1,9 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "photo-gallery-capacitor-react",
+  "appId": "com.freesons.projepitech",
+  "appName": "FreeSons",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",
-  "cordova": {}
+  "cordova": {},
+  "linuxAndroidStudioPath": "/home/alexis/Documents/android-studio/bin/studio.sh"
 }
